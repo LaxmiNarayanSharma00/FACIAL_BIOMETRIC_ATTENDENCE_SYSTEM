@@ -15,4 +15,7 @@ class Datavalidationconfig:
     STATUS_FILE:str
     all_schema:dict
 
-    
+@dataclass
+class Datatransformation_config:
+    root_dir: Path
+    data_path: Path    
