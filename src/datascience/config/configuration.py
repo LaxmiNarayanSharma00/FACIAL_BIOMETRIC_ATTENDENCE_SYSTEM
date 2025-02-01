@@ -1,6 +1,6 @@
 from src.datascience.constants import *
 from src.datascience.entity.config_entity import (DataIngestionConfig,Datavalidationconfig,
-                                                  Datatransformation_config,Datatrainer_config)
+                                                  Datatransformation_config,Datatrainer_config,model_evaluation_config)
 from src.datascience.utils.common import read_yml,create_directories
 class ConfigManager:
     def __init__(self,config_file_path=CONFIG_FILE_PATH,params_file_path=PARAMS_FILE_PATH,SCHEMA_FILE_PATH=SCHEMA_FILE_PATH):
@@ -67,6 +67,26 @@ class ConfigManager:
         )   
 
         return data_trainer_config
+    
+
+    def get_model_evaluation_config(self)->model_evaluation_config:
+        config=self.config.model_evaluation
+        params=self.params.ELASTIC_NET
+        schema=self.schema.TARGET_COLUMNS
+        create_directories(config.root_dir)
+
+        evaluation_config=model_evaluation_config(
+            root_dir=config.root_dir,
+            test_data_path=config.test_data_path,
+            model_path=config.model_path,
+            metric_file_path=config.metric_file_path,
+            all_params=params,
+            mlflow_uri=config.mlflow_uri,
+            target_column=schema.NAME
+        )
+
+        return evaluation_config
+            
 
 
 
