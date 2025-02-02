@@ -73,7 +73,7 @@ class ConfigManager:
         config=self.config.model_evaluation
         params=self.params.ELASTIC_NET
         schema=self.schema.TARGET_COLUMNS
-        create_directories(config.root_dir)
+        create_directories([config.root_dir])
 
         evaluation_config=model_evaluation_config(
             root_dir=config.root_dir,
@@ -81,7 +81,6 @@ class ConfigManager:
             model_path=config.model_path,
             metric_file_path=config.metric_file_path,
             all_params=params,
-            mlflow_uri=config.mlflow_uri,
             target_column=schema.NAME
         )
 
